@@ -29,8 +29,7 @@
 
 ## 패치 목록 — 2.7.1 기준 스냅샷
 
-⚠️ **이것은 2.7.1 한 세대의 스냅샷이다.** 살아 있는 정본은 워크스페이스의
-`.claude/skills/aidlc-claude-patch/register.md` 이고, 세대마다 전 항목을 다시 잰다. 좌표(줄 번호)는 **순정**
+⚠️ **이것은 2.7.1 한 세대의 스냅샷이다.** 세대가 바뀌면 전 항목을 다시 잰다. 좌표(줄 번호)는 **순정**
 기준이므로 이 트리에서 그대로 찾으면 어긋난다.
 
 ### 순정 강제 제거 — N축 (3건)
@@ -107,29 +106,13 @@ bun .claude/tools/aidlc-utility.ts doctor
 움직이니, 다음 세대에는 순정을 다시 재서 대조한다.
 
 ⚠️ **`doctor` 가 묻지 않는 것이 있다** — hook 등록 · `statusLine` · MCP 활성화 · `env` · `@`-import 체인.
-그리고 우리 델타가 트리에 실제로 들어 있는지도 묻지 않는다. 그래서 전수 검증은 워크스페이스의
-`aidlc-claude-patch` 스킬 배터리(`scripts/verify.py`)가 맡는다 — 2026-09-04 실측 **PASS**(sha 전수
-byte-exact · doctor 50-0 · `graph compile --check` exit 0 · `loadAgents` 14 · hook 참조 MISSING 0).
-
-## 다시 세우려면
-
-이 트리는 손으로 만든 것이 아니라 기계로 도출된 것이다. 워크스페이스
-(`~/Development/aidlc-v2-patch`)에서 `aidlc-claude-patch` 스킬을 쓴다.
-
-```bash
-C=.claude/skills/aidlc-claude-patch
-R=~/Development/ai-dlc/_single-source-of-truth/aidlc-workflows-v2
-git -C "$R" archive a277af21 dist/claude | tar -x -C /tmp/stock-2.7.1-claude
-uv run python $C/scripts/build.py  --stock /tmp/stock-2.7.1-claude/dist/claude --out /tmp/claude-2.7.1
-uv run python $C/scripts/verify.py --tree  /tmp/claude-2.7.1
-```
+그리고 우리 델타가 트리에 실제로 들어 있는지도 묻지 않는다. 이 트리는 배포 전에 그 항목까지 전수
+검증했다 — 2026-09-04 실측 **PASS**(sha 전수 byte-exact · doctor 50-0 · `graph compile --check` exit 0 ·
+`loadAgents` 14 · hook 참조 MISSING 0).
 
 ## 주의
 
 - **plugin 은 별도 작업이다.** `visual-mockups`(시각 mockup) 와 `code-map`(외부 코드맵) 은 이 트리에 없다.
-  얹으려면 워크스페이스의 `plugins/README.md` 절차를 따른다. 얹으면 MCP 서버가 5 → 7 로 늘고
-  `.aidlc-plugin/` 표시가 생기므로, 적용 여부는 그 둘로 판별한다.
-- **이 트리를 고쳐 쓰지 말 것.** 고칠 것이 생기면 워크스페이스의 트리를 고치고 `respec.py` 를 돌린 뒤
-  다시 복사한다. 사본을 직접 고치면 두 벌이 갈리고, 스펙은 그 갈림을 잡아 주지 않는다.
+  얹으면 MCP 서버가 5 → 7 로 늘고 `.aidlc-plugin/` 표시가 생기므로, 적용 여부는 그 둘로 판별한다.
 - 실런 데이터가 쌓이기 시작하면 `aidlc/` 아래가 그 프로젝트의 것이 된다. 다음 세대로 올릴 때 `aidlc/` 를
   덮어쓰지 않도록 주의한다.
