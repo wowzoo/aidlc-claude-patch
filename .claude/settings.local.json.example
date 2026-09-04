@@ -1,0 +1,15 @@
+{
+  "_comment": "Copy to settings.local.json (gitignored) for personal overrides. These take precedence over settings.json.",
+  "env": {
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "85",
+    "_comment_AWS_AIDLC_DEFAULT_SCOPE": "Pre-set default scope for /aidlc workflows. Valid: enterprise, feature, mvp, poc, bugfix, refactor, infra, security-patch, classic, workshop, express. Applies at workflow init only. See docs/guide/13-customization.md § Per-Project Default Scope.",
+    "AWS_AIDLC_DEFAULT_SCOPE": "classic",
+    "_comment_provider": "The framework does not pin a provider. It runs on whatever your Claude Code is already configured to use. Set the keys below only if you want this project to differ from your own setup.",
+    "_comment_CLAUDE_CODE_USE_BEDROCK": "Set to \"1\" to route this project through AWS Bedrock. Requires Bedrock model access and AWS credentials on the default SDK credential chain.",
+    "_comment_AWS_REGION": "Required when CLAUDE_CODE_USE_BEDROCK is set — Claude Code does not read the region from ~/.aws. Example: us-east-1.",
+    "_comment_AWS_PROFILE": "Set your AWS SSO/credential profile here (kept out of shared settings.json so it doesn't leak). Uncomment and set if you authenticate via a named profile.",
+    "_comment_ANTHROPIC_DEFAULT_MODELS": "On Bedrock you may pin per-tier inference profiles with ANTHROPIC_DEFAULT_{FABLE,OPUS,SONNET,HAIKU}_MODEL. Unset means your own Claude Code defaults apply."
+  },
+  "_comment_model": "Uncomment to pin the orchestrator model for this project (e.g. \"opus[1m]\"). Left unset so your own model selection applies.",
+  "_comment_effortLevel": "Uncomment to pin reasoning effort for this project (e.g. \"xhigh\"). Left unset so your own setting applies."
+}
